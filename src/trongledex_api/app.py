@@ -1,3 +1,5 @@
+from typing import Sequence
+
 from fastapi import FastAPI, HTTPException
 from sqlmodel import Session, select
 
@@ -13,7 +15,7 @@ def on_startup() -> None:
 
 
 @app.get("/trongles/")
-async def read_trongles() -> list[Trongle]:
+async def read_trongles() -> Sequence[Trongle]:
     """Returns all trongles from the database."""
     with Session(engine) as session:
         trongles = session.exec(select(Trongle)).all()
@@ -30,7 +32,7 @@ async def create_trongle(trongle: Trongle) -> Trongle:
         return trongle
 
 
-@app.get("/trongles/{trongle_id}")
+@app.get("/trongles/{trongle_id}/")
 async def read_trongle(trongle_id: int) -> Trongle:
     """Returns the matching trongle from the database."""
     with Session(engine) as session:

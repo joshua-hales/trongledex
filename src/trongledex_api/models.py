@@ -8,10 +8,16 @@ class User(SQLModel, table=True):
     name: str
 
 
+class Emotion(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    name: str
+
+
 class Trongle(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str
     description: str = ""
+    emotion: int | None = Field(default=None, foreign_key="emotion.id")
     image_url: str | None = None
     edges: int = 3
     faces: int = 1
