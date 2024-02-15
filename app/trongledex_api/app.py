@@ -1,20 +1,20 @@
 from typing import Sequence
 
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 from sqlmodel import Session, select
 
-from trongledex_api.database import create_db_and_tables, engine
-from trongledex_api.models import Trongle
+from app.trongledex_api.database import create_db_and_tables, engine
+from app.trongledex_api.models import Trongle
 
-app = FastAPI()
+router = APIRouter()
 
 
-@app.on_event("startup")
+@router.on_event("startup")
 def on_startup() -> None:
     create_db_and_tables()
 
 
-@app.get("/trongles/")
+@router.get("/trongles/")
 async def read_trongles() -> Sequence[Trongle]:
     """Returns all trongles from the database."""
     with Session(engine) as session:
@@ -22,7 +22,7 @@ async def read_trongles() -> Sequence[Trongle]:
         return trongles
 
 
-@app.post("/trongles/")
+@router.post("/trongles/")
 async def create_trongle(trongle: Trongle) -> Trongle:
     """Creates a new trongle in the database."""
     with Session(engine) as session:
@@ -32,7 +32,7 @@ async def create_trongle(trongle: Trongle) -> Trongle:
         return trongle
 
 
-@app.get("/trongles/{trongle_id}/")
+@router.get("/trongles/{trongle_id}/")
 async def read_trongle(trongle_id: int) -> Trongle:
     """Returns the matching trongle from the database."""
     with Session(engine) as session:
