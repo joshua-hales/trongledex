@@ -1,0 +1,15 @@
+services:
+  api:
+    build: .
+    container_name: trongledex-api
+    command: uvicorn app.main:app --host 0.0.0.0
+    volumes:
+      - db:/code/db
+    ports:
+      - 8000:8000
+    develop:
+      watch:
+        - action: rebuild
+          path: .
+volumes:
+  db:
