@@ -6,6 +6,17 @@ Designed for a tutorial on documentation practices.
 The [presentation](./documentation-presentation.md) is designed for [maaslalani/slides](https://github.com/maaslalani/slides).
 
 
+## Development
+
+Install necessary dependencies and set up development tools with the following commands:
+
+```
+pip install -r requirements-dev.txt
+pre-commit install
+pre-commit run --all-files
+```
+
+
 ## Run Locally
 
 ### Local
