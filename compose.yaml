@@ -2,7 +2,7 @@ services:
   api:
     build: .
     container_name: trongledex-api
-    command: uvicorn app.main:app --host 0.0.0.0
+    command: fastapi dev app/main.py
     volumes:
       - db:/code/db
     ports:
